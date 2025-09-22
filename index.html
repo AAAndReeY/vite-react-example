@@ -1,14 +1,151 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite-react-example/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <script type="module" crossorigin src="/vite-react-example/assets/index-CjenMFqy.js"></script>
-    <link rel="stylesheet" crossorigin href="/vite-react-example/assets/index-D8b4DHJx.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Uwu</title>
+  <style>
+    :root{
+      --bg1: #fff7fb;
+      --bg2: #f0f8ff;
+      --card: #ffffff;
+      --accent: #ff7ab6;
+      --text: #222;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      padding:24px;
+    }
+
+    .card{
+      background:var(--card);
+      width:100%;
+      max-width:520px;
+      padding:36px;
+      border-radius:18px;
+      box-shadow: 0 12px 30px rgba(16,24,40,0.08);
+      text-align:center;
+    }
+
+    .uwu {
+      display:inline-block;
+      font-weight:800;
+      font-size:96px;
+      line-height:1;
+      letter-spacing: -3px;
+      color:var(--accent);
+      text-shadow: 0 6px 18px rgba(255,122,182,0.18);
+      transform-origin:center;
+      transition: transform 220ms cubic-bezier(.2,.9,.3,1);
+      user-select:none;
+    }
+
+    .uwu.small { font-size:64px; }
+
+    p.lead{
+      margin:14px 0 24px;
+      color:#444;
+      font-size:16px;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    button{
+      cursor:pointer;
+      border:0;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      background:transparent;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    button:active{ transform: translateY(1px) scale(.995); }
+    .btn-outline{ border:1px solid rgba(34,34,34,0.06); background:transparent; }
+    .btn-primary{
+      background: linear-gradient(90deg, #ff99c9, #ff6ea6);
+      color:white;
+      box-shadow: 0 8px 20px rgba(255,110,166,0.18);
+    }
+
+    /* playful bounce animation */
+    @keyframes bounce {
+      0%{ transform: translateY(0) scale(1) }
+      30%{ transform: translateY(-12px) scale(1.05) }
+      60%{ transform: translateY(0) scale(0.99) }
+      100%{ transform: translateY(0) scale(1) }
+    }
+
+    .bounce{ animation: bounce 700ms both; }
+    footer{ margin-top:18px; font-size:12px; color:#666; }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="uwu-title">
+    <h1 id="uwu-title" class="uwu" aria-live="polite">Uwu</h1>
+
+    <p class="lead">Una pantalla sencilla que dice <strong>Uwu</strong>. Pulsa los botones para interactuar.</p>
+
+    <div class="controls" role="region" aria-label="Controles Uwu">
+      <button id="swapBtn" class="btn-outline" title="Cambiar estilo">Cambiar</button>
+      <button id="greetBtn" class="btn-primary" title="Saludar">Saludar</button>
+      <button id="bigBtn" class="btn-outline" title="Agrandar / achicar">Agrandar</button>
+    </div>
+
+    <footer>
+      Tip: abre la consola (F12) para ver mensajes al saludar.
+    </footer>
+  </main>
+
+  <script>
+    const uwu = document.getElementById('uwu-title');
+    const swapBtn = document.getElementById('swapBtn');
+    const greetBtn = document.getElementById('greetBtn');
+    const bigBtn = document.getElementById('bigBtn');
+
+    let alt = false;
+    swapBtn.addEventListener('click', ()=> {
+      alt = !alt;
+      uwu.textContent = alt ? 'UwU' : 'Uwu';
+      uwu.classList.add('bounce');
+      setTimeout(()=> uwu.classList.remove('bounce'), 800);
+    });
+
+    greetBtn.addEventListener('click', ()=> {
+      // friendly greeting and console output
+      alert('¡Holaa! Uwu te saluda 😊');
+      console.log('Uwu says hi 👋 — timestamp:', new Date().toISOString());
+      uwu.classList.add('bounce');
+      setTimeout(()=> uwu.classList.remove('bounce'), 800);
+    });
+
+    let big = false;
+    bigBtn.addEventListener('click', ()=> {
+      big = !big;
+      if(big) uwu.classList.add('small');
+      else uwu.classList.remove('small');
+      // toggling small class to demonstrate size change
+      uwu.style.transform = 'rotate(' + (big ? -4 : 0) + 'deg)';
+    });
+
+    // keyboard accessibility: press Space to trigger greet
+    window.addEventListener('keydown', (e)=> {
+      if(e.code === 'Space') {
+        e.preventDefault();
+        greetBtn.click();
+      }
+    });
+  </script>
+</body>
 </html>
